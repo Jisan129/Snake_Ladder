@@ -37,9 +37,14 @@ public:
 
     }
 
+    void setCurrentPosition(int currentPosition, int score) {
+
+        Player::currentPosition = currentPosition;
+    }
+
 
     void showPlayer() {
-        cout << playerName <<"\t"<< currentPosition <<'\t'<< numberOfMoves <<'\t'<< state;
+        cout << playerName << "\t" << currentPosition << '\t' << numberOfMoves << '\t' << state;
     }
 };
 
@@ -56,15 +61,9 @@ public:
 
 class Square {
 public:
-    int positionNumber;
-    int score;
 
-    Square(int positionNumber, int score) {
-        this->positionNumber = positionNumber;
-        this->score = score;
-    }
 
-    int givePosition() {
+    int givePosition(int positionNumber, int score) {
         int temp = positionNumber + score;
 
         switch (temp) {
@@ -133,53 +132,54 @@ public:
 
 };
 
-void start_game() {
 
-    char roll_one, roll_two;
-    int temp;
-    cout << "Player 1:" << endl << "Enter R To Roll Dice ";
-    cin >> roll_one;
+void start_game() {
+    int temp, temp2;
+    char R;
+    cout << "Enter R TO roll Dice";
+    cin >> R;
     GamePlay gamePlay;
     temp = gamePlay.rollDice();
-    if (temp == 1) {
-
-        Player p1("Player 1", 0, 1, true);
-        p1.showPlayer();
-    } else {
-        Player p1("Player 1", 0, 1, false);
-        p1.showPlayer();
-    }
-
-    cout << "Player 2:" << endl << "Enter R To Roll Dice ";
-    cin >> roll_two;
-
-
-    GamePlay gamePlay2;
-    temp = gamePlay2.rollDice();
-    if (temp == 1) {
-
-        Player p2("Player 2", 0, 1, true);
-        p2.showPlayer();
-    } else {
-        Player p2("Player 2", 0, 1, false);
-        p2.showPlayer();
-    }
-
+    Player player1("Player 1", temp, 1, true);
+    cout << "Enter R To roll Dice";
+    temp2 = gamePlay.rollDice();
+    Player player2("Player 2", temp2, 1, true);
 
 }
 
 int main() {
+    char R;
+    int temp, temp2;
     Board board;
     board.showBoard();
+    GamePlay gamePlay;
+    Square square;
+    Player p1("Player 1", 0, 0, true);
+    Player p2("Player 2", 0, 0, true);
+    int result = 0;
+    while (result <= 46) {
+        cout << "Enter R to roll dice"<<endl;
+        cin >> R;
+        temp = gamePlay.rollDice();
 
-    start_game();
+        cout << "Score: " << temp<<endl;
+        temp = square.givePosition(p1.currentPosition, temp);
+        p1.currentPosition=temp;
+        cout << "Position: " << temp<<endl;
+
+        cout << "Enter R to roll Dice -2";
+        cin>>R;
+        temp2 = gamePlay.rollDice();
+        cout << "Score: " << temp2<<endl;
+        temp2 = square.givePosition(p2.currentPosition, temp);
+        cout << "Position: " << temp2<<endl;
+        p2.currentPosition=temp2;
+        result = max(temp, temp2);
 
 
+    }
 
-    /* Player p1("jisan", 2, 3);
-    Square square(1,3);
-    cout<<endl;
-    cout<<square.givePosition();*/
+
     return 0;
 }
 
