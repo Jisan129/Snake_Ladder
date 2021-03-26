@@ -126,6 +126,9 @@ int main() {
     Board board;
     board.showBoard();
     Player p1("jisan", 2, 3);
+    Square square(1,3);
+    cout<<endl;
+    cout<<square.givePosition();
     return 0;
 }
 
