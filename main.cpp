@@ -152,30 +152,32 @@ int main() {
     int temp, temp2;
     Board board;
     board.showBoard();
-    GamePlay gamePlay;
     Square square;
     Player p1("Player 1", 0, 0, true);
     Player p2("Player 2", 0, 0, true);
     int result = 0;
     while (result <= 46) {
+        GamePlay gamePlay;
+
         cout << "Enter R to roll dice"<<endl;
         cin >> R;
         temp = gamePlay.rollDice();
 
         cout << "Score: " << temp<<endl;
-        temp = square.givePosition(p1.currentPosition, temp);
+       temp = square.givePosition(p1.currentPosition, temp);
         p1.currentPosition=temp;
         cout << "Position: " << temp<<endl;
 
         cout << "Enter R to roll Dice -2";
         cin>>R;
-        temp2 = gamePlay.rollDice();
+        GamePlay gamePlay1;
+        temp2 = gamePlay1.rollDice();
         cout << "Score: " << temp2<<endl;
         temp2 = square.givePosition(p2.currentPosition, temp);
         cout << "Position: " << temp2<<endl;
         p2.currentPosition=temp2;
         result = max(temp, temp2);
-
+ result++;
 
     }
 
